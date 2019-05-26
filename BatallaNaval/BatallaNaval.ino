@@ -22,23 +22,8 @@ void setup() {
 }
 
 void loop() {
-  //vCasillas();
-  int cA1 = analogRead(A0);
-  int cA2 = analogRead(A1);
-  int cA3 = analogRead(A2);
-  int cA4 = analogRead(A3);
-  int cB1 = analogRead(A4);
-  int cB2 = analogRead(A5);
-  int cB3 = analogRead(A6);
-  int cB4 = analogRead(A7);
-  int cC1 = analogRead(A8);
-  int cC2 = analogRead(A9);
-  int cC3 = analogRead(A10);
-  int cC4 = analogRead(A11);
-
-
-    Serial.println(cC3);
-
+  vCasillas();
+  
   if (cA1 > rActivacion) {
     c1 = "A1";
     if (cA2 > rActivacion) {
@@ -50,7 +35,7 @@ void loop() {
     } else {
       coordenada = c1;
     }
-Serial.println(coordenada);
+    Serial.println(coordenada);
   } else if (cA2 > rActivacion) {
     c1 = "A2";
     if (cA1 > rActivacion) {
@@ -92,7 +77,7 @@ Serial.println(coordenada);
     } else {
       coordenada = c1;
     }
-Serial.println(coordenada);
+    Serial.println(coordenada);
   } else if (cB1 > rActivacion) {
     c1 = "B1";
     if (cA1 > rActivacion) {
@@ -143,7 +128,7 @@ Serial.println(coordenada);
     } else {
       coordenada = c1;
     }
-Serial.println(coordenada);
+    Serial.println(coordenada);
   } else if (cB4 > rActivacion) {
     c1 = "B4";
     if (cA4 > rActivacion) {
@@ -212,17 +197,17 @@ Serial.println(coordenada);
     Serial.println(coordenada);
   }
 }
-//void vCasillas() {
-//  int cA1 = analogRead(A0);
-//  int cA2 = analogRead(A1);
-//  int cA3 = analogRead(A2);
-//  int cA4 = analogRead(A3);
-//  int cB1 = analogRead(A4);
-//  int cB2 = analogRead(A5);
-//  int cB3 = analogRead(A6);
-//  int cB4 = analogRead(A7);
-//  int cC1 = analogRead(A8);
-//  int cC2 = analogRead(A9);
-//  int cC3 = analogRead(A10);
-//  int cC4 = analogRead(A11);
-//}
+void vCasillas() {
+  cA1 = analogRead(A0);
+  cA2 = analogRead(A1);
+  cA3 = analogRead(A2);
+  cA4 = analogRead(A3);
+  cB1 = analogRead(A4);
+  cB2 = analogRead(A5);
+  cB3 = analogRead(A6);
+  cB4 = analogRead(A7);
+  cC1 = analogRead(A8);
+  cC2 = analogRead(A9);
+  cC3 = analogRead(A10);
+  cC4 = analogRead(A11);
+}
