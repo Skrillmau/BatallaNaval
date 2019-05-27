@@ -1,8 +1,10 @@
 int cA1 = 0, cA2 = 0, cA3 = 0, cA4 = 0, cB1 = 0, cB2 = 0, cB3 = 0, cB4 = 0, cC1 = 0, cC2 = 0, cC3 = 0, cC4 = 0;
+int bA1 = 2, bA2 = 3, bA3 = 4, bA4 = 5, bB1 = 6, bB2 = 7, bB3 = 8, bB4 = 9, bC1 = 10, bC2 = 11, bC3 = 12, bC4 = 13;
 int rActivacion = 800;
-String c1 = " ";
-String c2 = " ";
-String coordenada = " ";
+int barcrest = 4;
+String c1 = "";
+String c2 = "";
+String coordinates;
 
 
 void setup() {
@@ -22,8 +24,21 @@ void setup() {
 }
 
 void loop() {
+  if (Serial.available()) {
+    String barc = Serial.readString();
+    barcrest = barc.toInt();
+    while (barcrest != 0) {
+      coordinates = setCoordinates();
+      Serial.println(coordinates);
+    }
+  }
+
+
+}
+
+String setCoordinates() {
   vCasillas();
-  
+  String coordenada = "";
   if (cA1 > rActivacion) {
     c1 = "A1";
     if (cA2 > rActivacion) {
@@ -35,7 +50,6 @@ void loop() {
     } else {
       coordenada = c1;
     }
-    Serial.println(coordenada);
   } else if (cA2 > rActivacion) {
     c1 = "A2";
     if (cA1 > rActivacion) {
@@ -50,7 +64,6 @@ void loop() {
     } else {
       coordenada = c1;
     }
-    Serial.println(coordenada);
   } else if (cA3 > rActivacion) {
     c1 = "A3";
     if (cA2 > rActivacion) {
@@ -65,7 +78,6 @@ void loop() {
     } else {
       coordenada = c1;
     }
-    Serial.println(coordenada);
   } else if (cA4 > rActivacion) {
     c1 = "A4";
     if (cA3 > rActivacion) {
@@ -77,7 +89,6 @@ void loop() {
     } else {
       coordenada = c1;
     }
-    Serial.println(coordenada);
   } else if (cB1 > rActivacion) {
     c1 = "B1";
     if (cA1 > rActivacion) {
@@ -92,7 +103,6 @@ void loop() {
     } else {
       coordenada = c1;
     }
-    Serial.println(coordenada);
   } else if (cB2 > rActivacion) {
     c1 = "B2";
     if (cA2 > rActivacion) {
@@ -110,7 +120,6 @@ void loop() {
     } else {
       coordenada = c1;
     }
-    Serial.println(coordenada);
   } else if (cB3 > rActivacion) {
     c1 = "B3";
     if (cA3 > rActivacion) {
@@ -128,7 +137,6 @@ void loop() {
     } else {
       coordenada = c1;
     }
-    Serial.println(coordenada);
   } else if (cB4 > rActivacion) {
     c1 = "B4";
     if (cA4 > rActivacion) {
@@ -143,7 +151,6 @@ void loop() {
     } else {
       coordenada = c1;
     }
-    Serial.println(coordenada);
   } else if (cC1 > rActivacion) {
     c1 = "C1";
     if (cB1 > rActivacion) {
@@ -167,7 +174,6 @@ void loop() {
     } else {
       coordenada = c1;
     }
-    Serial.println(coordenada);
   } else if (cC3 > rActivacion) {
     c1 = "C3";
     if (cB3 > rActivacion) {
@@ -182,7 +188,6 @@ void loop() {
     } else {
       coordenada = c1;
     }
-    Serial.println(coordenada);
   } else if (cC4 > rActivacion) {
     c1 = "C4";
     if (cB4 > rActivacion) {
@@ -194,7 +199,6 @@ void loop() {
     } else {
       coordenada = c1;
     }
-    Serial.println(coordenada);
   }
 }
 void vCasillas() {

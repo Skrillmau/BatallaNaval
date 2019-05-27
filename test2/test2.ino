@@ -1,5 +1,5 @@
 int led = 3;
-
+int num;
 boolean enc1 = false;
 void setup() {
   // put your setup code here, to run once:
@@ -11,15 +11,16 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  if (Serial.available()) {
-    char val = Serial.read();
 
-    if (val == 'c') {
-      enc1 = !enc1;
-    }
-    digitalWrite(led, enc1);
+  if (Serial.available() > 0) {
+    String val = Serial.readString();
+    
+    num = val.toInt();
+    Serial.println(num);
+
     delay(100);
 
 
   }
+
 }
