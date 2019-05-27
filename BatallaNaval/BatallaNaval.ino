@@ -1,11 +1,22 @@
 int cA1 = 0, cA2 = 0, cA3 = 0, cA4 = 0, cB1 = 0, cB2 = 0, cB3 = 0, cB4 = 0, cC1 = 0, cC2 = 0, cC3 = 0, cC4 = 0;
 int bA1 = 2, bA2 = 3, bA3 = 4, bA4 = 5, bB1 = 6, bB2 = 7, bB3 = 8, bB4 = 9, bC1 = 10, bC2 = 11, bC3 = 12, bC4 = 13;
+
+int value = 0;
 int rActivacion = 800;
 int barcrest = 4;
 String c1 = "";
 String c2 = "";
 String coordinates;
-
+// state machine debouce btn
+unsigned long t_b1 = 0;
+unsigned long t_0_b1 = 0;
+unsigned long s0 = 0;
+unsigned long bounceTime = 20;
+int b1 = 0;
+int b1_prev = 0;
+// state machine battleship
+int sB = 0;
+int sB_prev = 0;
 
 void setup() {
   pinMode(A0, INPUT);
@@ -34,6 +45,93 @@ void loop() {
   }
 
 
+}
+
+void SM_Battleship() {
+  sB_prev = sB;
+  switch (sB) {
+    case 0:
+      sB = 1;
+      break;
+    case 1:
+      if (Serial.available()) {
+        String barc = Serial.readString();
+        barcrest = barc.toInt();
+        if (barcrest != 0) {
+          coordinates = setCoordinates();
+          Serial.println(coordinates);
+        }
+        else {
+          sB = 2;
+        }
+      }
+
+      break;
+    case 2:
+      if (digitalRead(bA1) == HIGH) {
+        for (s0 = millis(); (millis() - s0) < 1000;) {
+          debounce(bA1);
+        }
+      }
+      if (digitalRead(bA2) == HIGH) {
+        for (s0 = millis(); (millis() - s0) < 1000;) {
+          debounce(bA2);
+        }
+      }
+      if (digitalRead(bA3) == HIGH) {
+        for (s0 = millis(); (millis() - s0) < 1000;) {
+          debounce(bA3);
+        }
+      }
+      if (digitalRead(bA4) == HIGH) {
+        for (s0 = millis(); (millis() - s0) < 1000;) {
+          debounce(bA4);
+        }
+      }
+      if (digitalRead(bB1) == HIGH) {
+        for (s0 = millis(); (millis() - s0) < 1000;) {
+          debounce(bB1);
+        }
+      }
+      if (digitalRead(bB2) == HIGH) {
+        for (s0 = millis(); (millis() - s0) < 1000;) {
+          debounce(bB2);
+        }
+      }
+      if (digitalRead(bB3) == HIGH) {
+        for (s0 = millis(); (millis() - s0) < 1000;) {
+          debounce(bB3);
+        }
+      }
+      if (digitalRead(bB4) == HIGH) {
+        for (s0 = millis(); (millis() - s0) < 1000;) {
+          debounce(bB4);
+        }
+      }
+      if (digitalRead(bC1) == HIGH) {
+        for (s0 = millis(); (millis() - s0) < 1000;) {
+          debounce(bC1);
+        }
+      }
+      if (digitalRead(bC2) == HIGH) {
+        for (s0 = millis(); (millis() - s0) < 1000;) {
+          debounce(bC2);
+        }
+      }
+      if (digitalRead(bC3) == HIGH) {
+        for (s0 = millis(); (millis() - s0) < 1000;) {
+          debounce(bC3);
+        }
+      }
+      if (digitalRead(bC4) == HIGH) {
+        for (s0 = millis(); (millis() - s0) < 1000;) {
+          debounce(bC4);
+        }
+      }
+
+
+      break;
+  }
 }
 
 String setCoordinates() {
@@ -214,4 +312,67 @@ void vCasillas() {
   cC2 = analogRead(A9);
   cC3 = analogRead(A10);
   cC4 = analogRead(A11);
+}
+boolean debounce(int pin) {
+  b1_prev = b1;
+  switch (b1) {
+    case 0:
+      b1 = 1;
+      break;
+    case 1:
+      value = digitalRead(pin);
+      if (value == LOW) {
+        b1 = 2;
+      }
+      break;
+    case 2:
+      t_0_b1 = millis();
+      b1 = 3;
+      break;
+    case 3:
+      value = digitalRead(pin);
+      t_b1 = 0;
+      if (value == HIGH) {
+        b1 = 0;
+      }
+      if ((t_b1 - t_0_b1) > bounceTime) {
+        b1 = 4;
+      }
+      break;
+    case 4:
+      value = digitalRead(pin);
+      if (value == HIGH) {
+        b1 = 5;
+      }
+      break;
+    case 5:
+      if (pin == bA1) {
+        Serial.println("A1");
+      } else if (pin == bA2) {
+        Serial.println("A2");
+      } else if (pin == bA3) {
+        Serial.println("A3");
+      } else if (pin == bA4) {
+        Serial.println("A4");
+      } else if (pin == bB1) {
+        Serial.println("B1");
+      } else if (pin == bB2) {
+        Serial.println("B2");
+      } else if (pin == bB3) {
+        Serial.println("B3");
+      } else if (pin == bB4) {
+        Serial.println("B4");
+      } else if (pin == bC1) {
+        Serial.println("C1");
+      } else if (pin == bC2) {
+        Serial.println("C2");
+      } else if (pin == bC3) {
+        Serial.println("C3");
+      } else if (pin == bC4) {
+        Serial.println("C4");
+      }
+      b1 = 0;
+      break;
+  }
+
 }

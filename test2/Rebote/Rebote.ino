@@ -3,7 +3,7 @@ int btn1 = 12;
 unsigned long t_s1 = 0;
 unsigned long t_0_s1 = 0;
 unsigned long s0 = 0;
-unsigned long bounceTime = 20;//15
+unsigned long bounceTime = 20;
 int s1 = 0;
 int s1_prev = 0;
 int value = 0;
@@ -16,27 +16,16 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  //estadopas=digitalRead(btn);
   if (digitalRead(btn) == HIGH) {
     for (s0 = millis(); (millis() - s0) < 1000;) {
       debounce(btn);
-
-      //      if (s1 == 5) {
-      //        Serial.println("A1");
-      //      }
     }
   }
   if (digitalRead(btn1) == HIGH) {
     for (s0 = millis(); (millis() - s0) < 1000;) {
       debounce(btn1);
-
     }
   }
-
-  //debounce(btn1);
-
-
 }
 
 boolean debounce(int pin) {
