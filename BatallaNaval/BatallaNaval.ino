@@ -1,6 +1,5 @@
 int cA1 = 0, cA2 = 0, cA3 = 0, cA4 = 0, cB1 = 0, cB2 = 0, cB3 = 0, cB4 = 0, cC1 = 0, cC2 = 0, cC3 = 0, cC4 = 0;
 int bA1 = 2, bA2 = 3, bA3 = 4, bA4 = 5, bB1 = 6, bB2 = 7, bB3 = 8, bB4 = 9, bC1 = 10, bC2 = 11, bC3 = 12, bC4 = 13;
-
 int value = 0;
 int rActivacion = 800;
 int barcrest = 4;
@@ -43,8 +42,6 @@ void loop() {
       Serial.println(coordinates);
     }
   }
-
-
 }
 
 void SM_Battleship() {
@@ -65,7 +62,6 @@ void SM_Battleship() {
           sB = 2;
         }
       }
-
       break;
     case 2:
       if (digitalRead(bA1) == HIGH) {
@@ -128,8 +124,6 @@ void SM_Battleship() {
           debounce(bC4);
         }
       }
-
-
       break;
   }
 }
