@@ -32,9 +32,6 @@ void setup() {
 }
 
 void draw() {
-  //while (jugador1.available() > 0) {
-  //  player1(barcrest);
-  //}
   posXOri1=(width/2)-640;
   posYOri1=(height/2)-200;
   posXOri2=(width/2)+140;
@@ -78,30 +75,47 @@ void draw() {
 
 void serialEvent(Serial jugador1) {
   int barcrest = 4;
-  String dataReading = " ";
-  String inString;
+  String myString;
 
-  dataReading = jugador1.readString();
-  println(dataReading);
-
-  int inByte = jugador1.read();
-  println(inByte);
-
-  if (barcrest >= 0) {
-    System.out.println(barcrest);
+  while (barcrest >= 0) {
+    //System.out.println(barcrest);
     jugador1.write(barcrest);
     barcrest--;
+    //myString = jugador1.readString();
+    //println(myString);
   }
+  //if (myString != null) {
+  //  // trim crap
+  //  myString = trim(myString);
+  //  //value1 = int(myString); //make string to integer
+  //  println(myString);
+  //}
 
-  while (jugador1.available() > 0) {
-    if (barcrest == 0) {
-      inString = jugador1.readString();
-      System.out.println(inString);
-      //if (inString != null) {
-      //  System.out.println(inString+" debería estar aqui");
-      //} else {
-      //  System.out.println("¿Que haces aqui fred?");
-      //}
-    }
-  }
+  //int barcrest = 4;
+  //String dataReading = " ";
+  //String inString;
+
+  //dataReading = jugador1.readString();
+  //println(dataReading);
+
+  //int inByte = jugador1.read();
+  //println(inByte);
+
+  //if (barcrest >= 0) {
+  //  System.out.println(barcrest);
+  //  jugador1.write(barcrest);
+  //  barcrest--;
+  //}
+
+  //while (jugador1.available() > 0) {
+  //  if (barcrest == 0) {
+  //    inString = jugador1.readString();
+  //    System.out.println(inString);
+  //    //if (inString != null) {
+  //    //  System.out.println(inString+" debería estar aqui");
+  //    //} else {
+  //    //  System.out.println("¿Que haces aqui fred?");
+  //    //}
+  //  }
+  //}
 }

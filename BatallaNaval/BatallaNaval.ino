@@ -65,6 +65,7 @@ void loop() {
     coordinates = setCoordinates();
     Serial.println(coordinates);
   }
+  SM_Battleship();
 }
 
 void SM_Battleship() {
