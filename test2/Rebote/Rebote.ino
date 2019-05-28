@@ -18,14 +18,13 @@ void setup() {
 }
 
 void loop() {
-//  if (Serial.available()) {
-//    String barc = Serial.readString();
-//    barcrest = barc.toInt();
-//    if (barcrest == 0) {
-//      op = 2;
-//    }
-//  }
-  delay(100);
+  if (Serial.available()) {
+    String barc = Serial.readString();
+    barcrest = barc.toInt();
+    if (barcrest == 0) {
+      op = 2;
+    }
+  }
   // Serial.println(op);
   test();
 }
@@ -40,6 +39,7 @@ void test() {
       }
       break;
     case 2:
+      Serial.println("ready");
       if (digitalRead(btn1) == HIGH) {
         for (s0 = millis(); (millis() - s0) < 1000;) {
           debounce(btn1);
@@ -87,7 +87,7 @@ boolean debounce(int pin) {
         Serial.println("A1-B1");
         delay(100);
       } else if (pin == btn1) {
-        Serial.println("B1");
+        Serial.println("todos los barcos");
       }
 
       s1 = 0;

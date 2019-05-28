@@ -16,7 +16,7 @@ int rActivacion = 800;
 // Battleship coordinate variables
 String c1 = " ", c2 = " ", coordinates = " ";
 
-// State machine debouce btn
+// State machine debounce btn
 unsigned long t_b1 = 0;
 unsigned long t_0_b1 = 0;
 unsigned long s0 = 0;
@@ -394,5 +394,6 @@ void debounce(int pin) {
       }
       b1 = 0;
       break;
+     
   }
 }
