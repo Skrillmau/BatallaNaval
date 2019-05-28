@@ -2,7 +2,7 @@ import processing.serial.*;
 
 Serial jugador1;
 Serial jugador2;
-
+int barcrest = 4; 
 float posXOri1, posYOri1;
 float posXOri2, posYOri2;
 float ancho, largo, lineV, lineH, lineH2, disV, disH;
@@ -21,9 +21,9 @@ void setup() {
   size(1280, 720);
   //size(1920,1080);
   //fullScreen();
-  //String port1 = "COM7";
-  jugador1 = new Serial(this, Serial.list()[0], 9600);  
-  jugador1.bufferUntil('\n');
+  String port1 = "COM5";
+  jugador1 = new Serial(this, port1, 9600);  
+  //jugador1.bufferUntil('\n');
   //String port2= "COM8";
   //jugador2 = new Serial(this, port2, 9600);
   //PImage fondo;
@@ -69,53 +69,56 @@ void draw() {
   //lineas horizontales J2
   line(posXOri2, posYOri1+disH, lineH2, posYOri1+disH);
   line(posXOri2, posYOri1+2*disH, lineH2, posYOri1+2*disH);
+  if (barcrest>0) {
 
-  serialEvent(jugador1);
-}
-
-void serialEvent(Serial jugador1) {
-  int barcrest = 4;
-  String myString;
-
-  while (barcrest >= 0) {
-    //System.out.println(barcrest);
-    jugador1.write(barcrest);
-    barcrest--;
-    //myString = jugador1.readString();
-    //println(myString);
+    setUp(jugador1);
   }
-  //if (myString != null) {
-  //  // trim crap
-  //  myString = trim(myString);
-  //  //value1 = int(myString); //make string to integer
-  //  println(myString);
-  //}
-
-  //int barcrest = 4;
-  //String dataReading = " ";
-  //String inString;
-
-  //dataReading = jugador1.readString();
-  //println(dataReading);
-
-  //int inByte = jugador1.read();
-  //println(inByte);
-
-  //if (barcrest >= 0) {
-  //  System.out.println(barcrest);
-  //  jugador1.write(barcrest);
-  //  barcrest--;
-  //}
-
-  //while (jugador1.available() > 0) {
-  //  if (barcrest == 0) {
-  //    inString = jugador1.readString();
-  //    System.out.println(inString);
-  //    //if (inString != null) {
-  //    //  System.out.println(inString+" debería estar aqui");
-  //    //} else {
-  //    //  System.out.println("¿Que haces aqui fred?");
-  //    //}
-  //  }
-  //}
 }
+
+void setUp(Serial player) {
+  String coordenadas="";
+  String input = player.readStringUntil('\n');
+  coordenadas = trim(input);
+  if (coordenadas!=null) {
+    String[] coords = split(coordenadas, '-');
+    jugador1.write(barcrest);
+    System.out.println(coords[0]);
+    barcrest--;
+  }
+  //myString = jugador1.readString();
+  //println(myString);
+}
+//if (myString != null) {
+//  // trim crap
+//  myString = trim(myString);
+//  //value1 = int(myString); //make string to integer
+//  println(myString);
+//}
+
+//int barcrest = 4;
+//String dataReading = " ";
+//String inString;
+
+//dataReading = jugador1.readString();
+//println(dataReading);
+
+//int inByte = jugador1.read();
+//println(inByte);
+
+//if (barcrest >= 0) {
+//  System.out.println(barcrest);
+//  jugador1.write(barcrest);
+//  barcrest--;
+//}
+
+//while (jugador1.available() > 0) {
+//  if (barcrest == 0) {
+//    inString = jugador1.readString();
+//    System.out.println(inString);
+//    //if (inString != null) {
+//    //  System.out.println(inString+" debería estar aqui");
+//    //} else {
+//    //  System.out.println("¿Que haces aqui fred?");
+//    //}
+//  }
+//}

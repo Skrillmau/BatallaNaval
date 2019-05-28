@@ -8,6 +8,8 @@ int s1 = 0;
 int s1_prev = 0;
 int value = 0;
 String fase = "";
+int op = 1;
+int barcrest = 4;
 void setup() {
   // put your setup code here, to run once:
   pinMode(btn, INPUT);
@@ -16,23 +18,36 @@ void setup() {
 }
 
 void loop() {
-  if (Serial.available()) {
-    fase = Serial.readString();
-    fase.trim();
-    if (fase.equals("setup")) {
+//  if (Serial.available()) {
+//    String barc = Serial.readString();
+//    barcrest = barc.toInt();
+//    if (barcrest == 0) {
+//      op = 2;
+//    }
+//  }
+  delay(100);
+  // Serial.println(op);
+  test();
+}
+
+void test() {
+  switch (op) {
+    case 1:
       if (digitalRead(btn) == HIGH) {
         for (s0 = millis(); (millis() - s0) < 1500;) {
           debounce(btn);
         }
       }
+      break;
+    case 2:
       if (digitalRead(btn1) == HIGH) {
         for (s0 = millis(); (millis() - s0) < 1000;) {
           debounce(btn1);
         }
       }
-    }
 
   }
+
 }
 
 boolean debounce(int pin) {
