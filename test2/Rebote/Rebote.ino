@@ -7,7 +7,7 @@ unsigned long bounceTime = 20;
 int s1 = 0;
 int s1_prev = 0;
 int value = 0;
-
+String fase = "";
 void setup() {
   // put your setup code here, to run once:
   pinMode(btn, INPUT);
@@ -16,15 +16,22 @@ void setup() {
 }
 
 void loop() {
-  if (digitalRead(btn) == HIGH) {
-    for (s0 = millis(); (millis() - s0) < 1000;) {
-      debounce(btn);
+  if (Serial.available()) {
+    fase = Serial.readString();
+    fase.trim();
+    if (fase.equals("setup")) {
+      if (digitalRead(btn) == HIGH) {
+        for (s0 = millis(); (millis() - s0) < 1500;) {
+          debounce(btn);
+        }
+      }
+      if (digitalRead(btn1) == HIGH) {
+        for (s0 = millis(); (millis() - s0) < 1000;) {
+          debounce(btn1);
+        }
+      }
     }
-  }
-  if (digitalRead(btn1) == HIGH) {
-    for (s0 = millis(); (millis() - s0) < 1000;) {
-      debounce(btn1);
-    }
+
   }
 }
 
@@ -62,7 +69,8 @@ boolean debounce(int pin) {
       break;
     case 5:
       if (pin == btn) {
-        Serial.println("A1");
+        Serial.println("A1-B1");
+        delay(100);
       } else if (pin == btn1) {
         Serial.println("B1");
       }
