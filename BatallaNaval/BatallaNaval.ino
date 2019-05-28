@@ -1,23 +1,48 @@
+// Coordinates variable declaration
 int cA1 = 0, cA2 = 0, cA3 = 0, cA4 = 0, cB1 = 0, cB2 = 0, cB3 = 0, cB4 = 0, cC1 = 0, cC2 = 0, cC3 = 0, cC4 = 0;
+
+// Button shoot coordinate variable declaration
 int bA1 = 2, bA2 = 3, bA3 = 4, bA4 = 5, bB1 = 6, bB2 = 7, bB3 = 8, bB4 = 9, bC1 = 10, bC2 = 11, bC3 = 12, bC4 = 13;
+
+// State machine state value variable
 int value = 0;
-int rActivacion = 800;
+
+//
 int barcrest = 4;
-String c1 = "";
-String c2 = "";
-String coordinates;
-// state machine debouce btn
+
+// Activation range constant
+int rActivacion = 800;
+
+// Battleship coordinate variables
+String c1 = " ", c2 = " ", coordinates = " ";
+
+// State machine debouce btn
 unsigned long t_b1 = 0;
 unsigned long t_0_b1 = 0;
 unsigned long s0 = 0;
 unsigned long bounceTime = 20;
 int b1 = 0;
 int b1_prev = 0;
-// state machine battleship
+
+// State machine battleship
 int sB = 0;
 int sB_prev = 0;
 
 void setup() {
+  // Button pins initialization
+  pinMode(2, INPUT);
+  pinMode(3, INPUT);
+  pinMode(4, INPUT);
+  pinMode(5, INPUT);
+  pinMode(6, INPUT);
+  pinMode(7, INPUT);
+  pinMode(8, INPUT);
+  pinMode(9, INPUT);
+  pinMode(10, INPUT);
+  pinMode(11, INPUT);
+  pinMode(12, INPUT);
+  pinMode(13, INPUT);
+  // Sensor pins initialization
   pinMode(A0, INPUT);
   pinMode(A1, INPUT);
   pinMode(A2, INPUT);
@@ -34,13 +59,11 @@ void setup() {
 }
 
 void loop() {
-  if (Serial.available()) {
-    String barc = Serial.readString();
-    barcrest = barc.toInt();
-    while (barcrest != 0) {
-      coordinates = setCoordinates();
-      Serial.println(coordinates);
-    }
+  String barc = Serial.readString();
+  int barcrest = barc.toInt();
+  while (barcrest != 0) {
+    coordinates = setCoordinates();
+    Serial.println(coordinates);
   }
 }
 
@@ -130,7 +153,7 @@ void SM_Battleship() {
 
 String setCoordinates() {
   vCasillas();
-  String coordenada = "";
+  String coordenada = " ";
   if (cA1 > rActivacion) {
     c1 = "A1";
     if (cA2 > rActivacion) {
@@ -292,7 +315,9 @@ String setCoordinates() {
       coordenada = c1;
     }
   }
+  return coordenada;
 }
+
 void vCasillas() {
   cA1 = analogRead(A0);
   cA2 = analogRead(A1);
@@ -307,7 +332,8 @@ void vCasillas() {
   cC3 = analogRead(A10);
   cC4 = analogRead(A11);
 }
-boolean debounce(int pin) {
+
+void debounce(int pin) {
   b1_prev = b1;
   switch (b1) {
     case 0:
@@ -368,5 +394,4 @@ boolean debounce(int pin) {
       b1 = 0;
       break;
   }
-
 }
