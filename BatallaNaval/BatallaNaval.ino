@@ -2,7 +2,7 @@
 int cA1 = 0, cA2 = 0, cA3 = 0, cA4 = 0, cB1 = 0, cB2 = 0, cB3 = 0, cB4 = 0, cC1 = 0, cC2 = 0, cC3 = 0, cC4 = 0;
 
 // Button shoot coordinate variable declaration
-int bA1 = 2, bA2 = 3, bA3 = 4, bA4 = 5, bB1 = 6, bB2 = 7, bB3 = 8, bB4 = 9, bC1 = 10, bC2 = 11, bC3 = 12, bC4 = 13;
+int bA1 = 2, bA2 = 3, bA3 = 4, bA4 = 5, bB1 = 6, bB2 = 7, bB3 = 8, bB4 = 9, bC1 = 10, bC2 = 11, bC3 = 12, bC4 = 22;
 
 // State machine state value variable
 int value = 0;
@@ -31,48 +31,50 @@ unsigned long t_sB = 0;
 
 void setup() {
   // Button pins initialization
-  pinMode(2, INPUT);
+  //pinMode(2, INPUT);
   pinMode(3, INPUT);
-  pinMode(4, INPUT);
-  pinMode(5, INPUT);
+  //pinMode(4, INPUT);
+  //  pinMode(5, INPUT);
   pinMode(6, INPUT);
-  pinMode(7, INPUT);
-  pinMode(8, INPUT);
-  pinMode(9, INPUT);
-  pinMode(10, INPUT);
-  pinMode(11, INPUT);
-  pinMode(12, INPUT);
-  pinMode(13, INPUT);
+  //  pinMode(7, INPUT);
+  //  pinMode(8, INPUT);
+  //  pinMode(9, INPUT);
+  //  pinMode(10, INPUT);
+  //  pinMode(11, INPUT);
+  //  pinMode(12, INPUT);
+  //  pinMode(22, INPUT);
   // Sensor pins initialization
-  pinMode(A0, INPUT);
-  pinMode(A1, INPUT);
-  pinMode(A2, INPUT);
-  pinMode(A3, INPUT);
-  pinMode(A4, INPUT);
-  pinMode(A5, INPUT);
-  pinMode(A6, INPUT);
-  pinMode(A7, INPUT);
-  pinMode(A8, INPUT);
-  pinMode(A9, INPUT);
-  pinMode(A10, INPUT);
-  pinMode(A11, INPUT);
+  //  pinMode(A0, INPUT);
+  //  pinMode(A1, INPUT);
+  //  pinMode(A2, INPUT);
+  //  pinMode(A3, INPUT);
+  //  pinMode(A4, INPUT);
+  //  pinMode(A5, INPUT);
+  //  pinMode(A6, INPUT);
+  //  pinMode(A7, INPUT);
+  //  pinMode(A8, INPUT);
+  //  pinMode(A9, INPUT);
+  //  pinMode(A10, INPUT);
+  //  pinMode(A11, INPUT);
   Serial.begin(9600);
-  pinMode(2, OUTPUT);
+  //pinMode(2, OUTPUT);
 }
 
 void loop() {
- //Serial.println(analogRead(A1));
-
+  //Serial.println(analogRead(A1));
+  SM_Battleship();
   if (Serial.available()) {
     char val = Serial.read();
     if (val == 'b') {
-      digitalWrite(2, HIGH);
+      //digitalWrite(2, HIGH);
       sB = 0;
     }
+    if (val == 'u') {
+      sB = 2;
+    }
   }
-  SM_Battleship();
-  delay(100);
-  digitalWrite(2, LOW);
+  //delay(100);
+  //digitalWrite(2, LOW);
 }
 
 void SM_Battleship() {
@@ -142,6 +144,7 @@ void SM_Battleship() {
           debounce(bC3);
         }
       }
+      // Pin 13 de uno de los mega no esta funcionando, le cambie el valor al pin 22 /choko
       if (digitalRead(bC4) == HIGH) {
         for (s0 = millis(); (millis() - s0) < 1000;) {
           debounce(bC4);
@@ -442,6 +445,5 @@ void debounce(int pin) {
       }
       b1 = 0;
       break;
-
   }
 }
