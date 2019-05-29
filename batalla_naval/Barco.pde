@@ -5,7 +5,7 @@ class Barco {
   boolean impact1 = false;
   boolean impact2 = false;
 
-  Barco() {
+  Barco() {;
     this.pos1 = "";
     this.pos2 = "";
   }

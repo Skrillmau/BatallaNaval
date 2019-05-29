@@ -7,19 +7,20 @@ int barcrest2 = 4;
 ArrayList<Barco> barcosP1;
 ArrayList<Barco> barcosP2;
 int turno = 0;
-float posXOri1, posYOri1;
-float posXOri2, posYOri2;
-float ancho, largo, lineV, lineH, lineH2, disV, disH;
-int pox1, poy1;
-int pox2, poy2;
-int pox3, poy3;
-int pox4, poy4;
-int pox5, poy6;
-int pox7, poy8;
-int pox9, poy9;
-int pox10, poy10;
-int pox11, poy11;
-int pox12, poy12;
+
+//float posXOri1, posYOri1;
+//float posXOri2, posYOri2;
+//float ancho, largo, lineV, lineH, lineH2, disV, disH;
+//int pox1, poy1;
+//int pox2, poy2;
+//int pox3, poy3;
+//int pox4, poy4;
+//int pox5, poy6;
+//int pox7, poy8;
+//int pox9, poy9;
+//int pox10, poy10;
+//int pox11, poy11;
+//int pox12, poy12;
 
 Barco barco1;
 Barco barco2;
@@ -30,8 +31,18 @@ Barco barco6;
 Barco barco7;
 Barco barco8;
 
+Matriz matJ1;
+Matriz matJ2;
+
+
 void setup() {
   size(1280, 720);
+  
+  matJ1 = new Matriz(75, 150);
+  matJ2 = new Matriz(725, 150);
+  matJ1.draw();
+  matJ2.draw();
+
   barco1 = new Barco();
   barco1.setCoord1("A1");
   barco1.setCoord2("A2");
@@ -68,53 +79,56 @@ void setup() {
   barcosP2.add(barco8);
   //size(1920,1080);
   //fullScreen();
-  String port1 = "COM8";
+  String port1 = "COM7";
   jugador1 = new Serial(this, port1, 9600);
-  //String port2= "COM8";
-  //jugador2 = new Serial(this, port2, 9600);
+  String port2= "COM8";
+  jugador2 = new Serial(this, port2, 9600);
   //PImage fondo;
   //fondo=loadImage("blueocean.jpg");
   //image(fondo,1920,1080);
 }
 
 void draw() {
-  posXOri1=(width/2)-640;
-  posYOri1=(height/2)-200;
-  posXOri2=(width/2)+140;
 
-  disV=135;
-  disH=135;
-  ancho=540;
-  largo=400;
+  //posXOri1=(width/2)-640;
+  //posYOri1=(height/2)-200;
+  //posXOri2=(width/2)+140;
 
-  lineV=posYOri1+400;
-  lineH=posXOri1+540;
-  lineH2=posXOri2+540;
+  //disV=135;
+  //disH=135;
+  //ancho=540;
+  //largo=400;
 
-  background(255);
-  stroke(100);
-  //tablero jugador 1
-  rect(posXOri1, posYOri1, ancho, largo);
-  //tablero jugador 2
-  rect(posXOri2, posYOri1, ancho, largo);
+  //lineV=posYOri1+400;
+  //lineH=posXOri1+540;
+  //lineH2=posXOri2+540;
 
-  //lineas verticales J1
-  line(posXOri1+135, posYOri1, posXOri1+disV, lineV);
-  line(posXOri1+270, posYOri1, posXOri1+2*disV, lineV);
-  line(posXOri1+405, posYOri1, posXOri1+3*disV, lineV);
+  //background(255);
+  //stroke(100);
+  ////tablero jugador 1
+  //rect(posXOri1, posYOri1, ancho, largo);
+  ////tablero jugador 2
+  //rect(posXOri2, posYOri1, ancho, largo);
 
-  //lineas verticales J2
-  line(posXOri2+135, posYOri1, posXOri2+disV, lineV);
-  line(posXOri2+270, posYOri1, posXOri2+2*disV, lineV);
-  line(posXOri2+405, posYOri1, posXOri2+3*disV, lineV);
+  ////lineas verticales J1
+  //line(posXOri1+135, posYOri1, posXOri1+disV, lineV);
+  //line(posXOri1+270, posYOri1, posXOri1+2*disV, lineV);
+  //line(posXOri1+405, posYOri1, posXOri1+3*disV, lineV);
 
-  //lineas horizontales J1
-  line(posXOri1, posYOri1+disH, lineH, posYOri1+disH);
-  line(posXOri1, posYOri1+2*disH, lineH, posYOri1+2*disH);
+  ////lineas verticales J2
+  //line(posXOri2+135, posYOri1, posXOri2+disV, lineV);
+  //line(posXOri2+270, posYOri1, posXOri2+2*disV, lineV);
+  //line(posXOri2+405, posYOri1, posXOri2+3*disV, lineV);
 
-  //lineas horizontales J2
-  line(posXOri2, posYOri1+disH, lineH2, posYOri1+disH);
-  line(posXOri2, posYOri1+2*disH, lineH2, posYOri1+2*disH);
+  ////lineas horizontales J1
+  //line(posXOri1, posYOri1+disH, lineH, posYOri1+disH);
+  //line(posXOri1, posYOri1+2*disH, lineH, posYOri1+2*disH);
+
+  ////lineas horizontales J2
+  //line(posXOri2, posYOri1+disH, lineH2, posYOri1+disH);
+  //line(posXOri2, posYOri1+2*disH, lineH2, posYOri1+2*disH);
+
+
   //if (barcrest1>0) {
   //  delay(1000);
   //  setUp(jugador1, "P1");
@@ -131,7 +145,7 @@ void draw() {
       playerTurn(jugador1, "P1");
     } else if (whosTurn().equals("P2")) {  
       println("Turno del jugador2");
-      //playerTurn(jugador2, "P2");
+      playerTurn(jugador2, "P2");
     }
   }
 }
@@ -158,7 +172,6 @@ void setUp(Serial player, String jugador) {
 
     if (jugador.equals("P1")) {
       barcosP1.add(barco);
-      //println(barco.getCoords());
       barcrest1--;
     } else if (jugador.equals("P2")) {
       barcosP2.add(barco);    

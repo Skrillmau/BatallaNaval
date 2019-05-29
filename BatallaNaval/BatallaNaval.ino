@@ -2,7 +2,7 @@
 int cA1 = 0, cA2 = 0, cA3 = 0, cA4 = 0, cB1 = 0, cB2 = 0, cB3 = 0, cB4 = 0, cC1 = 0, cC2 = 0, cC3 = 0, cC4 = 0;
 
 // Button shoot coordinate variable declaration
-int bA1 = 2, bA2 = 3, bA3 = 4, bA4 = 5, bB1 = 6, bB2 = 7, bB3 = 8, bB4 = 9, bC1 = 10, bC2 = 11, bC3 = 12, bC4 = 22;
+int bA1 = 23, bA2 = 3, bA3 = 4, bA4 = 5, bB1 = 6, bB2 = 7, bB3 = 8, bB4 = 9, bC1 = 10, bC2 = 11, bC3 = 12, bC4 = 22;
 
 // State machine state value variable
 int value = 0;
@@ -31,7 +31,7 @@ unsigned long t_sB = 0;
 
 void setup() {
   // Button pins initialization
-  //pinMode(2, INPUT);
+  //pinMode(23, INPUT);
   pinMode(3, INPUT);
   //pinMode(4, INPUT);
   //  pinMode(5, INPUT);
