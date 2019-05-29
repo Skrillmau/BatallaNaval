@@ -11,7 +11,7 @@ int value = 0;
 int barcrest = 4;
 
 // Activation range constant
-int rActivacion = 800;
+int rActivacion = 700;
 
 // Battleship coordinate variables
 String c1 = " ", c2 = " ", coordinates = " ";
@@ -25,8 +25,9 @@ int b1 = 0;
 int b1_prev = 0;
 
 // State machine battleship
-int sB = 0;
+int sB = 3;
 int sB_prev = 0;
+unsigned long t_sB = 0;
 
 void setup() {
   // Button pins initialization
@@ -56,16 +57,22 @@ void setup() {
   pinMode(A10, INPUT);
   pinMode(A11, INPUT);
   Serial.begin(9600);
+  pinMode(2, OUTPUT);
 }
 
 void loop() {
-  String barc = Serial.readString();
-  int barcrest = barc.toInt();
-  while (barcrest != 0) {
-    coordinates = setCoordinates();
-    Serial.println(coordinates);
+ //Serial.println(analogRead(A1));
+
+  if (Serial.available()) {
+    char val = Serial.read();
+    if (val == 'b') {
+      digitalWrite(2, HIGH);
+      sB = 0;
+    }
   }
   SM_Battleship();
+  delay(100);
+  digitalWrite(2, LOW);
 }
 
 void SM_Battleship() {
@@ -75,17 +82,9 @@ void SM_Battleship() {
       sB = 1;
       break;
     case 1:
-      if (Serial.available()) {
-        String barc = Serial.readString();
-        barcrest = barc.toInt();
-        if (barcrest != 0) {
-          coordinates = setCoordinates();
-          Serial.println(coordinates);
-        }
-        else {
-          sB = 2;
-        }
-      }
+      coordinates = setCoordinates();
+      Serial.println(coordinates);
+      sB = 3;
       break;
     case 2:
       if (digitalRead(bA1) == HIGH) {
@@ -149,168 +148,217 @@ void SM_Battleship() {
         }
       }
       break;
+    case 3:
+
+      break;
   }
 }
 
 String setCoordinates() {
   vCasillas();
-  String coordenada = " ";
+  String coordenada;
   if (cA1 > rActivacion) {
     c1 = "A1";
+    pinMode(A0, OUTPUT);
     if (cA2 > rActivacion) {
       c2 = "A2";
+      pinMode(A1, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cB1 > rActivacion) {
       c2 = "B1";
+      pinMode(A4, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else {
       coordenada = c1;
     }
   } else if (cA2 > rActivacion) {
     c1 = "A2";
+    pinMode(A1, OUTPUT);
     if (cA1 > rActivacion) {
       c2 = "A1";
+      pinMode(A0, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cA3 > rActivacion) {
       c2 = "A3";
+      pinMode(A2, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cB2 > rActivacion) {
       c2 = "B2";
+      pinMode(A5, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else {
       coordenada = c1;
     }
   } else if (cA3 > rActivacion) {
     c1 = "A3";
+    pinMode(A2, OUTPUT);
     if (cA2 > rActivacion) {
       c2 = "A2";
+      pinMode(A1, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cA4 > rActivacion) {
       c2 = "A4";
+      pinMode(A3, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cB3 > rActivacion) {
       c2 = "B3";
+      pinMode(A6, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else {
       coordenada = c1;
     }
   } else if (cA4 > rActivacion) {
     c1 = "A4";
+    pinMode(A3, OUTPUT);
     if (cA3 > rActivacion) {
       c2 = "A3";
+      pinMode(A2, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cB4 > rActivacion) {
       c2 = "B4";
+      pinMode(A7, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else {
       coordenada = c1;
     }
   } else if (cB1 > rActivacion) {
     c1 = "B1";
+    pinMode(A4, OUTPUT);
     if (cA1 > rActivacion) {
       c2 = "A1";
+      pinMode(A0, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cB2 > rActivacion) {
       c2 = "B2";
+      pinMode(A5, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cC1 > rActivacion) {
       c2 = "C1";
+      pinMode(A8, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else {
       coordenada = c1;
     }
   } else if (cB2 > rActivacion) {
     c1 = "B2";
+    pinMode(A5, OUTPUT);
     if (cA2 > rActivacion) {
       c2 = "A2";
+      pinMode(A1, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cB1 > rActivacion) {
       c2 = "B1";
+      pinMode(A4, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cB3 > rActivacion) {
       c2 = "B3";
+      pinMode(A6, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cC2 > rActivacion) {
       c2 = "C2";
+      pinMode(A9, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else {
       coordenada = c1;
     }
   } else if (cB3 > rActivacion) {
     c1 = "B3";
+    pinMode(A6, OUTPUT);
     if (cA3 > rActivacion) {
       c2 = "A3";
+      pinMode(A2, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cB2 > rActivacion) {
       c2 = "B2";
+      pinMode(A5, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cB4 > rActivacion) {
       c2 = "B4";
+      pinMode(A7, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cC3 > rActivacion) {
       c2 = "C3";
+      pinMode(A10, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else {
       coordenada = c1;
     }
   } else if (cB4 > rActivacion) {
     c1 = "B4";
+    pinMode(A7, OUTPUT);
     if (cA4 > rActivacion) {
       c2 = "A4";
+      pinMode(A3, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cB3 > rActivacion) {
       c2 = "B3";
+      pinMode(A6, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cC4 > rActivacion) {
       c2 = "C4";
+      pinMode(A11, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else {
       coordenada = c1;
     }
   } else if (cC1 > rActivacion) {
     c1 = "C1";
+    pinMode(A8, OUTPUT);
     if (cB1 > rActivacion) {
       c2 = "B1";
+      pinMode(A4, OUTPUT);
     } else if (cC2 > rActivacion) {
       c2 = "C2";
+      pinMode(A9, OUTPUT);
     } else {
       coordenada = c1;
     }
   } else if (cC2 > rActivacion) {
     c1 = "C2";
+    pinMode(A9, OUTPUT);
     if (cB2 > rActivacion) {
       c2 = "B2";
+      pinMode(A5, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cC1 > rActivacion) {
       c2 = "C1";
+      pinMode(A8, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cC3 > rActivacion) {
       c2 = "C3";
+      pinMode(A10, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else {
       coordenada = c1;
     }
   } else if (cC3 > rActivacion) {
     c1 = "C3";
+    pinMode(A10, OUTPUT);
     if (cB3 > rActivacion) {
       c2 = "B3";
+      pinMode(A6, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cC2 > rActivacion) {
       c2 = "C2";
+      pinMode(A9, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cC4 > rActivacion) {
       c2 = "C4";
+      pinMode(A11, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else {
       coordenada = c1;
     }
   } else if (cC4 > rActivacion) {
     c1 = "C4";
+    pinMode(A11, OUTPUT);
     if (cB4 > rActivacion) {
       c2 = "B4";
+      pinMode(A7, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cC3 > rActivacion) {
       c2 = "C3";
+      pinMode(A10, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else {
       coordenada = c1;
@@ -394,6 +442,6 @@ void debounce(int pin) {
       }
       b1 = 0;
       break;
-     
+
   }
 }

@@ -18,15 +18,17 @@ void setup() {
 }
 
 void loop() {
-  if (Serial.available()) {
-    String barc = Serial.readString();
-    barcrest = barc.toInt();
-    if (barcrest == 0) {
-      op = 2;
-    }
-  }
-  // Serial.println(op);
-  test();
+  pinMode(A1,OUTPUT);
+  Serial.println(analogRead(A1));
+//  if (Serial.available()) {
+//    String barc = Serial.readString();
+//    barcrest = barc.toInt();
+//    if (barcrest == 0) {
+//      op = 2;
+//    }
+//  }
+//  // Serial.println(op);
+//  test();
 }
 
 void test() {

@@ -2,7 +2,9 @@ import processing.serial.*;
 
 Serial jugador1;
 Serial jugador2;
-int barcrest = 4; 
+int barcrest = 4;
+ArrayList<Barco> barcosP1;
+Barco[] barcosP2 = new Barco[4];
 float posXOri1, posYOri1;
 float posXOri2, posYOri2;
 float ancho, largo, lineV, lineH, lineH2, disV, disH;
@@ -19,9 +21,10 @@ int pox12, poy12;
 
 void setup() {
   size(1280, 720);
+  barcosP1 = new ArrayList<Barco>(4);
   //size(1920,1080);
   //fullScreen();
-  String port1 = "COM5";
+  String port1 = "COM8";
   jugador1 = new Serial(this, port1, 9600);  
   //jugador1.bufferUntil('\n');
   //String port2= "COM8";
@@ -70,26 +73,50 @@ void draw() {
   line(posXOri2, posYOri1+disH, lineH2, posYOri1+disH);
   line(posXOri2, posYOri1+2*disH, lineH2, posYOri1+2*disH);
   if (barcrest>0) {
+
+    delay(1000);
     setUp(jugador1);
   }
-  if (barcrest==0) {
-    String input = jugador1.readStringUntil('\n');
-    input = trim(input);
-    System.out.println(input);
-  }
+  //if (barcrest==0) {
+  //  String input = jugador1.readStringUntil('\n');
+  //  input = trim(input);
+  //  System.out.println(input);
+  //}
 }
 
 void setUp(Serial player) {
+  jugador1.write('b'); 
+  Barco barco;
   String coordenadas="";
   String input = player.readStringUntil('\n');
   coordenadas = trim(input);
-  if (coordenadas!=null) {
+  //System.out.println(coordenadas);
+  if (coordenadas!=null&&!coordenadas.equals("")) {
+    //
+
     String[] coords = split(coordenadas, '-');
-    System.out.println(coords[0]);
+    //System.out.println(coords[0]);
+    barco = new Barco();
+    for (int i = 0; i<coords.length; i++) {   
+      //barco.setCoords(coords[i]);
+      if (i == 0) {
+        barco.setCoord1(coords[0]);
+      }
+      if (i == 1) {
+        barco.setCoord2(coords[1]);
+      }
+    }
+    //println(barco.getCoords());
+    barcosP1.add(barco);
+    System.out.println(barcosP1.get(0).getCoords());
     barcrest--;
   }
   if (barcrest==0) {
     System.out.println("chokoesputo");
+    for (Barco bar : barcosP1) {
+      System.out.println(bar.getCoords());
+    }
+
     player.write(barcrest);
   }
 }
