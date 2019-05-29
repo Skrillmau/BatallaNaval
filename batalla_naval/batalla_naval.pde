@@ -2,9 +2,10 @@ import processing.serial.*;
 
 Serial jugador1;
 Serial jugador2;
-int barcrest = 4;
+int barcrest1 = 4;
+int barcrest2 = 4;
 ArrayList<Barco> barcosP1;
-Barco[] barcosP2 = new Barco[4];
+ArrayList<Barco> barcosP2;
 float posXOri1, posYOri1;
 float posXOri2, posYOri2;
 float ancho, largo, lineV, lineH, lineH2, disV, disH;
@@ -22,6 +23,7 @@ int pox12, poy12;
 void setup() {
   size(1280, 720);
   barcosP1 = new ArrayList<Barco>(4);
+  barcosP2 = new ArrayList<Barco>(4);
   //size(1920,1080);
   //fullScreen();
   String port1 = "COM8";
@@ -72,20 +74,18 @@ void draw() {
   //lineas horizontales J2
   line(posXOri2, posYOri1+disH, lineH2, posYOri1+disH);
   line(posXOri2, posYOri1+2*disH, lineH2, posYOri1+2*disH);
-  if (barcrest>0) {
-
+  if (barcrest1>0) {
     delay(1000);
-    setUp(jugador1);
+    setUp(jugador1, "P1");
   }
-  //if (barcrest==0) {
-  //  String input = jugador1.readStringUntil('\n');
-  //  input = trim(input);
-  //  System.out.println(input);
-  //}
+  if (barcrest2>0) {
+    delay(1000);
+    setUp(jugador2, "P2");
+  }
 }
 
-void setUp(Serial player) {
-  jugador1.write('b'); 
+void setUp(Serial player, String jugador) {
+  player.write('b'); 
   Barco barco;
   String coordenadas="";
   String input = player.readStringUntil('\n');
@@ -107,16 +107,16 @@ void setUp(Serial player) {
       }
     }
     //println(barco.getCoords());
-    barcosP1.add(barco);
-    System.out.println(barcosP1.get(0).getCoords());
-    barcrest--;
-  }
-  if (barcrest==0) {
-    System.out.println("chokoesputo");
-    for (Barco bar : barcosP1) {
-      System.out.println(bar.getCoords());
+    if (jugador.equals("P1")) {
+      barcosP1.add(barco);
+      println(barco.getCoords());
+      barcrest1--;
+    } else if (jugador.equals("P2")) {
+      barcosP2.add(barco);    
+      barcrest2--;
     }
+    //System.out.println(barcosP1.get(0).getCoords());
 
-    player.write(barcrest);
+    player.clear();
   }
 }
