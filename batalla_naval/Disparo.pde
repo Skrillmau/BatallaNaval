@@ -1,3 +1,5 @@
+// clase de disparo contiene la coordenada 'x' y 'y'
+// tiene variable del estado del disparo si impacto en barco o no para mostrar en la matriz de cada jguador
 class Disparo {
 
   String state;

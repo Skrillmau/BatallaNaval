@@ -1,3 +1,5 @@
+// clase barco con variables de posicion tamaño variable para una o dos pociciones
+// posee metodos getter y setter y metodos para impactar casilla
 class Barco {
   String pos1;
   String pos2;
