@@ -20,12 +20,12 @@ String c1 = " ", c2 = " ", coordinates = " ";
 unsigned long t_b1 = 0;
 unsigned long t_0_b1 = 0;
 unsigned long s0 = 0;
-unsigned long bounceTime = 20;
+unsigned long bounceTime = 15;
 int b1 = 0;
 int b1_prev = 0;
 
 // State machine battleship
-int sB = 3;
+int sB = 0;
 int sB_prev = 0;
 unsigned long t_sB = 0;
 
@@ -61,7 +61,7 @@ void setup() {
 }
 
 void loop() {
-  Serial.println(analogRead(A0));
+  //Serial.println(analogRead(A5));
   // ejecuta state machine del juego
   SM_Battleship();
   if (Serial.available()) {
@@ -306,7 +306,7 @@ String setCoordinates() {
       coordenada = c1 + "-" + c2;
     } else if (cC4 > rActivacion) {
       c2 = "C4";
-      pinMode(A11, OUTPUT);
+      pinMode(A10, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else {
       coordenada = c1;
@@ -336,14 +336,14 @@ String setCoordinates() {
       coordenada = c1 + "-" + c2;
     } else if (cC3 > rActivacion) {
       c2 = "C3";
-      pinMode(A10, OUTPUT);
+      pinMode(A11, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else {
       coordenada = c1;
     }
   } else if (cC3 > rActivacion) {
     c1 = "C3";
-    pinMode(A10, OUTPUT);
+    pinMode(A11, OUTPUT);
     if (cB3 > rActivacion) {
       c2 = "B3";
       pinMode(A6, OUTPUT);
@@ -354,21 +354,21 @@ String setCoordinates() {
       coordenada = c1 + "-" + c2;
     } else if (cC4 > rActivacion) {
       c2 = "C4";
-      pinMode(A11, OUTPUT);
+      pinMode(A10, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else {
       coordenada = c1;
     }
   } else if (cC4 > rActivacion) {
     c1 = "C4";
-    pinMode(A11, OUTPUT);
+    pinMode(A10, OUTPUT);
     if (cB4 > rActivacion) {
       c2 = "B4";
       pinMode(A7, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else if (cC3 > rActivacion) {
       c2 = "C3";
-      pinMode(A10, OUTPUT);
+      pinMode(A11, OUTPUT);
       coordenada = c1 + "-" + c2;
     } else {
       coordenada = c1;
@@ -388,8 +388,8 @@ void vCasillas() {
   cB4 = analogRead(A7);
   cC1 = analogRead(A8);
   cC2 = analogRead(A9);
-  cC3 = analogRead(A10);
-  cC4 = analogRead(A11);
+  cC3 = analogRead(A11);
+  cC4 = analogRead(A10);
 }
 // state machine para eliminar rebotes de los pulsadores
 void debounce(int pin) {
