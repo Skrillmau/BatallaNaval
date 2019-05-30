@@ -11,7 +11,7 @@ int value = 0;
 int barcrest = 4;
 
 // Activation range constant
-int rActivacion = 700;
+int rActivacion = 350;
 
 // Battleship coordinate variables
 String c1 = " ", c2 = " ", coordinates = " ";
@@ -20,7 +20,7 @@ String c1 = " ", c2 = " ", coordinates = " ";
 unsigned long t_b1 = 0;
 unsigned long t_0_b1 = 0;
 unsigned long s0 = 0;
-unsigned long bounceTime = 15;
+unsigned long bounceTime = 30;
 int b1 = 0;
 int b1_prev = 0;
 
@@ -61,7 +61,7 @@ void setup() {
 }
 
 void loop() {
-  //Serial.println(analogRead(A5));
+  //Serial.println(analogRead(A0));
   // ejecuta state machine del juego
   SM_Battleship();
   if (Serial.available()) {
@@ -94,7 +94,7 @@ void SM_Battleship() {
       Serial.println(coordinates);
       sB = 3;
       break;
-    case 2:
+    case 2: // al detectar que un boton fue presionado ejecuta el metodo de debounce para ese boton durante 1 segundo
       if (digitalRead(bA1) == HIGH) {
         for (s0 = millis(); (millis() - s0) < 1000;) {
           debounce(bA1);

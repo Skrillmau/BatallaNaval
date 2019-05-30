@@ -118,10 +118,15 @@ void setup() {
   disparosP1 = new ArrayList<Disparo>();
   disparosP2 = new ArrayList<Disparo>();
   // inicializar comunicacion serial de ambos jugadores
-  String port1 = "COM7";
+  String port1 = "COM8";
   jugador1 = new Serial(this, port1, 9600);
-  String port2= "COM8";
+  String port2= "COM7";
   jugador2 = new Serial(this, port2, 9600);
+
+  jugador1.write("");
+  jugador2.write("");
+  jugador1.clear();
+  jugador2.clear();
 }
 
 void draw() {
@@ -161,6 +166,7 @@ void draw() {
         if (barc.getCord2().equals("")) { 
           tBarco = "uno";
           co1 = barc.getCord1().charAt(0);
+         // System.out.println( barc.getCord1());
           co2 = barc.getCord1().charAt(1);
           matJ1.coordM1(co1, Integer.parseInt(co2+""));
           matJ1.drawDisparos(disparosP2);

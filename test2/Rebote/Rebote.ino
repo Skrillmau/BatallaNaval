@@ -19,7 +19,7 @@ void setup() {
 
 void loop() {
   pinMode(A1,OUTPUT);
-  Serial.println(analogRead(A1));
+  //Serial.println(analogRead(A1));
 //  if (Serial.available()) {
 //    String barc = Serial.readString();
 //    barcrest = barc.toInt();
