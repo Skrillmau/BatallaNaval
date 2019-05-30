@@ -5,6 +5,8 @@ Serial jugador2;
 
 int barcrest1 = 4;
 int barcrest2 = 4;
+int puntaje1=0;
+int puntaje2=0;
 ArrayList<Barco> barcosP1;
 ArrayList<Barco> barcosP2;
 ArrayList<Disparo> disparosP1;
@@ -18,8 +20,7 @@ PImage J2;
 PImage BS;
 PImage yTurn;
 PImage yTurn2;
-
-
+PImage Winner;
 
 Barco barco1;
 Barco barco2;
@@ -42,7 +43,6 @@ char co2;
 char co3;
 char co4;
 
-
 void setup() {
   //size(1280, 720);
   //size(1920,1080);
@@ -59,6 +59,8 @@ void setup() {
   image(vS, (width/2)-100, (height/2)-100, vS.width/2, vS.height/2);
   yTurn = loadImage("Turn.jpg");
   yTurn2 = loadImage("Turn.jpg");
+  Winner = loadImage("winner.png");
+
   matJ1 = new Matriz(((width/2)-700), ((height/2)-150));
   matJ2 = new Matriz(((width/2)+250), ((height/2)-150));
   matJ1.draw();
@@ -66,24 +68,35 @@ void setup() {
 
   barco1 = new Barco();
   barco1.setCoord1("A1");
+  barco1.setImpacto1(true);
+
   barco1.setCoord2("A2");
   barco2 = new Barco();
   barco2.setCoord1("C4");
   barco2.setCoord2("B4");
+  barco2.setImpacto1(true);
+  barco2.setImpacto2(true);
   barco3 = new Barco();
   barco3.setCoord1("C2");
+  barco3.setImpacto1(true);
   barco4 = new Barco();
   barco4.setCoord1("A3");
-
+  barco4.setImpacto1(true);
 
   barco5 = new Barco();
   barco5.setCoord1("B3");
   barco5.setCoord2("B2");
+  barco5.setImpacto2(true);
+  barco5.setImpacto1(true);
   barco6 = new Barco();
   barco6.setCoord1("A3");
   barco6.setCoord2("A4");
+
+  barco6.setImpacto2(true);
+  barco6.setImpacto1(true);
   barco7 = new Barco();
   barco7.setCoord1("C4");
+  barco7.setImpacto1(true);
   barco8 = new Barco();
   barco8.setCoord1("A2");
 
@@ -154,12 +167,18 @@ void draw() {
           matJ1.drawDisparos(disparosP2);
           matJ2.drawDisparos(disparosP1);
         }
-      }  
+      }
       mostrarYt = true;
       mostrarYt1 = false;
       if (mostrarYt) {
-        image(yTurn, ((width/2)-580), height/2+250, yTurn.width*2, yTurn.height*2);
+        image(yTurn, ((width/2)-580), (height/2)+250, yTurn.width*2, yTurn.height*2);
         mostrarYt = false;
+      }      
+      if (puntaje2 == 6) {        
+        mostrarYt = false;
+        mostrarYt1 = false;
+        image(Winner, ((width/2)+375), (height/2)+250, Winner.width/2, Winner.height/2);
+        noLoop();
       }
       playerTurn(jugador1, "P1");
     } else if (whosTurn().equals("P2")) {
@@ -186,8 +205,14 @@ void draw() {
       mostrarYt = false;
       mostrarYt1 = true;
       if (mostrarYt1) {
-        image(yTurn2, ((width/2)+375), height/2+250, yTurn2.width*2, yTurn2.height*2);
+        image(yTurn2, ((width/2)+375), (height/2)+250, yTurn2.width*2, yTurn2.height*2);
         mostrarYt1 = false;
+      }
+      if (puntaje1 == 6) {
+        mostrarYt = false;
+        mostrarYt1 = false;
+        image(Winner, ((width/2)-580), (height/2)+250, Winner.width/2, Winner.height/2);
+        noLoop();
       }
       playerTurn(jugador2, "P2");
     }
@@ -264,11 +289,13 @@ void disparar(String jugador, String coordenada) {
       barcosP2.get(pos).setImpacto1(true);
       disp = new Disparo("impacto", coordenada);
       disparosP1.add(disp);
+      puntaje1++;
       println("¡Impacto1 en: "+coordenada+"!");
     } else if (impactoC2) {
       barcosP2.get(pos).setImpacto2(true);
       disp = new Disparo("impacto", coordenada);
       disparosP1.add(disp);
+      puntaje1++;
       println("¡Impacto2 en: "+coordenada+"!");
     } else if (fallo) {
       disp = new Disparo("fallo", coordenada);
@@ -293,13 +320,15 @@ void disparar(String jugador, String coordenada) {
       barcosP1.get(pos).setImpacto1(true);
       disp = new Disparo("impacto", coordenada);
       disparosP2.add(disp);
+      puntaje2++;
       println("¡Impacto1 en: "+coordenada+"!");
     } else if (impactoC2) {
       barcosP1.get(pos).setImpacto2(true);
       disp = new Disparo("impacto", coordenada);
       disparosP2.add(disp);
+      puntaje2++;
       println("¡Impacto2 en: "+coordenada+"!");
-    }else if (fallo) {
+    } else if (fallo) {
       disp = new Disparo("fallo", coordenada);
       disparosP2.add(disp);
       println("¡Disparo en la coordenada "+coordenada+" fallo!");
