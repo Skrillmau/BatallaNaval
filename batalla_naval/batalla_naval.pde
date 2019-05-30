@@ -8,19 +8,13 @@ ArrayList<Barco> barcosP1;
 ArrayList<Barco> barcosP2;
 int turno = 0;
 
-//float posXOri1, posYOri1;
-//float posXOri2, posYOri2;
-//float ancho, largo, lineV, lineH, lineH2, disV, disH;
-//int pox1, poy1;
-//int pox2, poy2;
-//int pox3, poy3;
-//int pox4, poy4;
-//int pox5, poy6;
-//int pox7, poy8;
-//int pox9, poy9;
-//int pox10, poy10;
-//int pox11, poy11;
-//int pox12, poy12;
+PImage vS;
+PImage fondo;
+PImage J1;
+PImage J2;
+PImage BS;
+PImage yTurn;
+PImage yTurn2;
 
 Barco barco1;
 Barco barco2;
@@ -34,12 +28,27 @@ Barco barco8;
 Matriz matJ1;
 Matriz matJ2;
 
+boolean mostrarYt = false;
+boolean mostrarYt1 = false;
 
 void setup() {
-  size(1280, 720);
-  
-  matJ1 = new Matriz(75, 150);
-  matJ2 = new Matriz(725, 150);
+  //size(1280, 720);
+  //size(1920,1080);
+  fullScreen();
+  fondo = loadImage("blueocean.jpg");
+  background(fondo);
+  BS = loadImage("Battleship.jpg");
+  image(BS, width/2-360, 50); 
+  J1 = loadImage("player1.jpg");
+  image(J1, ((width/2)-635), ((height/2)-250), (J1.width/2)*1.25, (J1.height/2)*1.2); 
+  J2 = loadImage("player2.jpg"); 
+  image(J2, ((width/2)+300), ((height/2)-250)); 
+  vS = loadImage("VS.jpg");
+  image(vS, (width/2)-100, (height/2)-100, vS.width/2, vS.height/2);
+  yTurn = loadImage("Turn.jpg");
+  yTurn2 = loadImage("Turn.jpg");
+  matJ1 = new Matriz(((width/2)-700), ((height/2)-150));
+  matJ2 = new Matriz(((width/2)+250), ((height/2)-150));
   matJ1.draw();
   matJ2.draw();
 
@@ -77,58 +86,20 @@ void setup() {
   barcosP2.add(barco6);
   barcosP2.add(barco7);
   barcosP2.add(barco8);
-  //size(1920,1080);
-  //fullScreen();
   String port1 = "COM7";
   jugador1 = new Serial(this, port1, 9600);
   String port2= "COM8";
   jugador2 = new Serial(this, port2, 9600);
-  //PImage fondo;
-  //fondo=loadImage("blueocean.jpg");
-  //image(fondo,1920,1080);
 }
 
 void draw() {
-
-  //posXOri1=(width/2)-640;
-  //posYOri1=(height/2)-200;
-  //posXOri2=(width/2)+140;
-
-  //disV=135;
-  //disH=135;
-  //ancho=540;
-  //largo=400;
-
-  //lineV=posYOri1+400;
-  //lineH=posXOri1+540;
-  //lineH2=posXOri2+540;
-
-  //background(255);
-  //stroke(100);
-  ////tablero jugador 1
-  //rect(posXOri1, posYOri1, ancho, largo);
-  ////tablero jugador 2
-  //rect(posXOri2, posYOri1, ancho, largo);
-
-  ////lineas verticales J1
-  //line(posXOri1+135, posYOri1, posXOri1+disV, lineV);
-  //line(posXOri1+270, posYOri1, posXOri1+2*disV, lineV);
-  //line(posXOri1+405, posYOri1, posXOri1+3*disV, lineV);
-
-  ////lineas verticales J2
-  //line(posXOri2+135, posYOri1, posXOri2+disV, lineV);
-  //line(posXOri2+270, posYOri1, posXOri2+2*disV, lineV);
-  //line(posXOri2+405, posYOri1, posXOri2+3*disV, lineV);
-
-  ////lineas horizontales J1
-  //line(posXOri1, posYOri1+disH, lineH, posYOri1+disH);
-  //line(posXOri1, posYOri1+2*disH, lineH, posYOri1+2*disH);
-
-  ////lineas horizontales J2
-  //line(posXOri2, posYOri1+disH, lineH2, posYOri1+disH);
-  //line(posXOri2, posYOri1+2*disH, lineH2, posYOri1+2*disH);
-
-
+  background(fondo);
+  image(BS, width/2-360, 50);
+  image(J1, ((width/2)-635), ((height/2)-250), (J1.width/2)*1.25, (J1.height/2)*1.2); 
+  image(J2, ((width/2)+300), ((height/2)-250)); 
+  image(vS, (width/2)-100, (height/2)-100, vS.width/2, vS.height/2);
+  matJ1.draw();
+  matJ2.draw();
   //if (barcrest1>0) {
   //  delay(1000);
   //  setUp(jugador1, "P1");
@@ -140,10 +111,21 @@ void draw() {
   if (barcosP1.size() == 4 && barcosP2.size()==4) {
     delay(1000);
     println(turno);
-    if (whosTurn().equals("P1")) {  
-      println("Turno del jugador1");
+    if (whosTurn().equals("P1")) {
+      mostrarYt = true;
+      mostrarYt1 = false;
+      if (mostrarYt) {
+        image(yTurn, ((width/2)-580), height/2+250, yTurn.width*2, yTurn.height*2);
+        mostrarYt = false;
+      }
       playerTurn(jugador1, "P1");
-    } else if (whosTurn().equals("P2")) {  
+    } else if (whosTurn().equals("P2")) {
+      mostrarYt = false;
+      mostrarYt1 = true;
+      if (mostrarYt1) {
+        image(yTurn2, ((width/2)+375), height/2+250, yTurn2.width*2, yTurn2.height*2);
+        mostrarYt1 = false;
+      }
       println("Turno del jugador2");
       playerTurn(jugador2, "P2");
     }
