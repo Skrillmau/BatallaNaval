@@ -100,7 +100,7 @@ void setup() {
   barcosP2.add(barco8);
 
   disparosP1 = new ArrayList<Disparo>();
-  disparosP1 = new ArrayList<Disparo>();
+  disparosP2 = new ArrayList<Disparo>();
   String port1 = "COM7";
   jugador1 = new Serial(this, port1, 9600);
   String port2= "COM8";
@@ -121,7 +121,8 @@ void draw() {
   }
   if (disparosP2.size() > 0) {
     matJ1.drawDisparos(disparosP2);
-  } //if (barcrest1>0) {
+  }
+  //if (barcrest1>0) {
   //  delay(1000);
   //  setUp(jugador1, "P1");
   //}
@@ -141,6 +142,8 @@ void draw() {
           co1 = barc.getCord1().charAt(0);
           co2 = barc.getCord1().charAt(1);
           matJ1.coordM1(co1, Integer.parseInt(co2+""));
+          matJ1.drawDisparos(disparosP2);
+          matJ2.drawDisparos(disparosP1);
         } else {
           tBarco = "dos";
           co1 = barc.getCord1().charAt(0);
@@ -148,8 +151,10 @@ void draw() {
           co3 = barc.getCord2().charAt(0);
           co4 = barc.getCord2().charAt(1);
           matJ1.coordM2(co1, Integer.parseInt(co2+""), co3, Integer.parseInt(co4+""));
+          matJ1.drawDisparos(disparosP2);
+          matJ2.drawDisparos(disparosP1);
         }
-      }
+      }  
       mostrarYt = true;
       mostrarYt1 = false;
       if (mostrarYt) {
@@ -165,6 +170,8 @@ void draw() {
           co1 = barc.getCord1().charAt(0);
           co2 = barc.getCord1().charAt(1);
           matJ2.coordM1(co1, Integer.parseInt(co2+""));
+          matJ1.drawDisparos(disparosP2);
+          matJ2.drawDisparos(disparosP1);
         } else {
           tBarco = "dos";
           co1 = barc.getCord1().charAt(0);
@@ -172,6 +179,8 @@ void draw() {
           co3 = barc.getCord2().charAt(0);
           co4 = barc.getCord2().charAt(1);
           matJ2.coordM2(co1, Integer.parseInt(co2+""), co3, Integer.parseInt(co4+""));
+          matJ1.drawDisparos(disparosP2);
+          matJ2.drawDisparos(disparosP1);
         }
       }
       mostrarYt = false;
@@ -256,14 +265,12 @@ void disparar(String jugador, String coordenada) {
       disp = new Disparo("impacto", coordenada);
       disparosP1.add(disp);
       println("¡Impacto1 en: "+coordenada+"!");
-    }
-    if (impactoC2) {
+    } else if (impactoC2) {
       barcosP2.get(pos).setImpacto2(true);
       disp = new Disparo("impacto", coordenada);
       disparosP1.add(disp);
       println("¡Impacto2 en: "+coordenada+"!");
-    }
-    if (fallo) {
+    } else if (fallo) {
       disp = new Disparo("fallo", coordenada);
       disparosP1.add(disp);
       println("¡Disparo en la coordenada "+coordenada+" fallo!");
@@ -287,14 +294,12 @@ void disparar(String jugador, String coordenada) {
       disp = new Disparo("impacto", coordenada);
       disparosP2.add(disp);
       println("¡Impacto1 en: "+coordenada+"!");
-    }
-    if (impactoC2) {
+    } else if (impactoC2) {
       barcosP1.get(pos).setImpacto2(true);
       disp = new Disparo("impacto", coordenada);
       disparosP2.add(disp);
       println("¡Impacto2 en: "+coordenada+"!");
-    }
-    if (fallo) {
+    }else if (fallo) {
       disp = new Disparo("fallo", coordenada);
       disparosP2.add(disp);
       println("¡Disparo en la coordenada "+coordenada+" fallo!");

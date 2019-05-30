@@ -139,23 +139,62 @@ class Matriz {
   }
 
   void drawDisparos(ArrayList<Disparo> disparos) {
+    char co1, co2;
+    int pos1 = 0, pos2 =0;   
+
     for (Disparo disp : disparos) {
+      //print
       if (disp.getStatus().equals("impacto")) {
+        co1 = disp.getDisparo().charAt(0);
+        co2 = disp.getDisparo().charAt(1);
+
+        pos2 = Integer.parseInt(co2+"");
+        pos2 -= 1;
+
+        if (co1 =='A') {
+          pos1 = 0;
+        } else if (co1 == 'B') {
+          pos1 = 1;
+        } else if (co1 == 'C') {
+          pos1 = 2;
+        }
+
         for (int i = 0; i<3; i++) {
-          for (int j = 0; j<4; j++) {
-            int y = i*escala;
-            int x = j*escala; 
-            fill(255, 0, 0);
-            rect(x+desX, y+desY, escala, escala);
+          if (pos1 == i) {
+            for (int j = 0; j<4; j++) {
+              if (pos2 == j) {
+                int y = i*escala;
+                int x = j*escala; 
+                fill(255, 0, 0, 100);
+                rect(x+desX, y+desY, escala, escala);
+              }
+            }
           }
         }
       } else if (disp.getStatus().equals("fallo")) {
+        co1 = disp.getDisparo().charAt(0);
+        co2 = disp.getDisparo().charAt(1);
+
+        pos2 = Integer.parseInt(co2+"");
+        pos2 -= 1;
+
+        if (co1 =='A') {
+          pos1 = 0;
+        } else if (co1 == 'B') {
+          pos1 = 1;
+        } else if (co1 == 'C') {
+          pos1 = 2;
+        }
         for (int i = 0; i<3; i++) {
-          for (int j = 0; j<4; j++) {
-            int y = i*escala;
-            int x = j*escala; 
-            fill(255);
-            rect(x+desX, y+desY, escala, escala);
+          if (pos1 == i) {
+            for (int j = 0; j<4; j++) {
+              if (pos2 == j) {
+                int y = i*escala;
+                int x = j*escala; 
+                fill(255, 150);
+                rect(x+desX, y+desY, escala, escala);
+              }
+            }
           }
         }
       }
