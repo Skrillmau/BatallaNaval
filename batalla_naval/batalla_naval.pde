@@ -69,22 +69,22 @@ void setup() {
   matJ1.draw();
   matJ2.draw();
 
-  //barco1 = new Barco();
-  //barco1.setCoord1("A1");
-  //barco1.setImpacto1(true);
+  barco1 = new Barco();
+  barco1.setCoord1("A1");
+  barco1.setImpacto1(true);
 
-  //barco1.setCoord2("A2");
-  //barco2 = new Barco();
-  //barco2.setCoord1("C4");
-  //barco2.setCoord2("B4");
-  //barco2.setImpacto1(true);
-  //barco2.setImpacto2(true);
-  //barco3 = new Barco();
-  //barco3.setCoord1("C2");
-  //barco3.setImpacto1(true);
-  //barco4 = new Barco();
-  //barco4.setCoord1("A3");
-  //barco4.setImpacto1(true);
+  barco1.setCoord2("A2");
+  barco2 = new Barco();
+  barco2.setCoord1("C4");
+  barco2.setCoord2("B4");
+  barco2.setImpacto1(true);
+  barco2.setImpacto2(true);
+  barco3 = new Barco();
+  barco3.setCoord1("C2");
+  barco3.setImpacto1(true);
+  barco4 = new Barco();
+  barco4.setCoord1("A3");
+  barco4.setImpacto1(true);
 
   barco5 = new Barco();
   barco5.setCoord1("B3");
@@ -95,19 +95,19 @@ void setup() {
   barco6.setCoord1("A3");
   barco6.setCoord2("A4");
 
-  //barco6.setImpacto2(true);
-  //barco6.setImpacto1(true);
-  //barco7 = new Barco();
-  //barco7.setCoord1("C4");
-  //barco7.setImpacto1(true);
-  //barco8 = new Barco();
-  //barco8.setCoord1("A2");
+  barco6.setImpacto2(true);
+  barco6.setImpacto1(true);
+  barco7 = new Barco();
+  barco7.setCoord1("C4");
+  barco7.setImpacto1(true);
+  barco8 = new Barco();
+  barco8.setCoord1("A2");
 
   barcosP1 = new ArrayList<Barco>();
-  //barcosP1.add(barco1);
-  //barcosP1.add(barco2);
-  //barcosP1.add(barco3);
-  //barcosP1.add(barco4);
+  barcosP1.add(barco1);
+  barcosP1.add(barco2);
+  barcosP1.add(barco3);
+  barcosP1.add(barco4);
 
   barcosP2 = new ArrayList<Barco>();
   barcosP2.add(barco5);
@@ -157,6 +157,7 @@ void draw() {
     if (whosTurn().equals("P1")) {
       for (int i = 0; i<barcosP1.size(); i++) {
         Barco barc = barcosP1.get(i);
+        // obtener coordenadas para poner imagenes de los barcos 
         if (barc.getCord2().equals("")) { 
           tBarco = "uno";
           co1 = barc.getCord1().charAt(0);
@@ -180,16 +181,18 @@ void draw() {
       if (mostrarYt) {
         image(yTurn, ((width/2)-580), (height/2)+250, yTurn.width*2, yTurn.height*2);
         mostrarYt = false;
-      }      
+      }      // verifica puntaje 1 punto = 1 impacto cuando el jugador llega a 6 puntos gana
       if (puntaje2 == 6) {        
         mostrarYt = false;
         mostrarYt1 = false;
         image(Winner, ((width/2)+375), (height/2)+250, Winner.width/2, Winner.height/2);
         noLoop();
       }
+      // ejecuta el metodo de turno para el jugador 1
       playerTurn(jugador1, "P1");
     } else if (whosTurn().equals("P2")) {
       for (int i = 0; i<barcosP2.size(); i++) {
+        // obtener coordenadas para poner imagenes de los barcos
         Barco barc = barcosP2.get(i);
         if (barc.getCord2().equals("")) { 
           tBarco = "uno";
@@ -214,13 +217,14 @@ void draw() {
       if (mostrarYt1) {
         image(yTurn2, ((width/2)+375), (height/2)+250, yTurn2.width*2, yTurn2.height*2);
         mostrarYt1 = false;
-      }
+      } // verifica puntaje 1 punto = 1 impacto cuando el jugador llega a 6 puntos gana
       if (puntaje1 == 6) {
         mostrarYt = false;
         mostrarYt1 = false;
         image(Winner, ((width/2)-580), (height/2)+250, Winner.width/2, Winner.height/2);
         noLoop();
       }
+      // ejecuta el metodo de turno para el jugador 1
       playerTurn(jugador2, "P2");
     }
   }
