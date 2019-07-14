@@ -61,7 +61,7 @@ void setup() {
 }
 
 void loop() {
-  //Serial.println(analogRead(A11));
+  //Serial.println(analogRead(A0));
   // ejecuta state machine del juego
   SM_Battleship();
   if (Serial.available()) {
